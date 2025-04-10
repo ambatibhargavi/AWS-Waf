@@ -52,13 +52,15 @@ To demonstrate the **403 Forbidden** response using AWS WAF by explicitly **bloc
 ### 2. ✅ Launch an EC2 Instance
 
 - Amazon Linux 2 or Ubuntu
-- Install a simple web server (`nginx`, `httpd`, or Flask app)
+- Install a simple web server (`apache server`, `https`, or Flask app)
 - Open **port 80** (HTTP) and **port 22** (SSH) in the Security Group
 
 ```bash
-sudo yum install nginx -y
-sudo systemctl enable nginx
-sudo systemctl start nginx
+#!/bin/bash
+yes | sudo apt update
+yes | sudo apt install apache2
+echo "<h1>Server Details</h1><p><strong>Hostname:</strong> $(hostname)</p><p><strong>IP Address:</strong> $(hostname -I | cut -d" " -f1)</p>" > /var/www/html/index.html
+sudo systemctl restart apache2
 ```
 
 ### 3. ✅ Set Up an Application Load Balancer (ALB)
